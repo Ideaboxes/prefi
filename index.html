@@ -2,14 +2,17 @@
 <html ng-app="prefalyticsApp">
   <head>
     <meta charset="utf-8">
-    <title>Prefalytics</title>
+    <title>Prefi</title>
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
     <script src="js/controllers.js"></script>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   </head>
   <body ng-controller="HomeCtrl">
     <div class="container">
-      <h2>{{greetings}}</h2>
+      <h2>Hello {{user.first_name}}</h2>
+      <button data-ng-show="!loggedIn" class="btn btn-primary btn-lg" data-ng-click="IntentLogin()">Connect my Facebook</button>
+      <button data-ng-show="loggedIn" class="btn btn-danger btn-lg" data-ng-click="Logout()">Logout</button>
     </div>
   </body>
 </html>

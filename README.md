@@ -12,3 +12,8 @@ Keep track of/find out who likes what
 - Crawl facebook likes
 - Crawl and analyse facebook status/tweets?
 - Compare and extrapolate from similar profiles?
+
+## Dev
+A Facebook app has been configured to allow prefi.keang.me, so:
+- Add `127.0.0.0 pref.keang.me` to `/etc/hosts`
+- Server a local pref.keange.me
