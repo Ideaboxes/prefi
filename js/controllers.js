@@ -5,7 +5,7 @@ prefalyticsApp.config(function(FacebookProvider){
 });
 
 prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
-  $scope.user = {first_name: "from Prefi"};
+  $scope.user = {first_name: "there."};
 
   var setStatus = function(){
     Facebook.getLoginStatus(function(response){
