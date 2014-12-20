@@ -7,31 +7,30 @@ prefalyticsApp.config(function(FacebookProvider){
 prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
   $scope.user = {first_name: "from Prefi"};
 
-  var getStatus = function(){
+  var setStatus = function(){
     Facebook.getLoginStatus(function(response){
       if(response.status === 'connected'){
         $scope.loggedIn = true;
+        setUser();
       } else {
         $scope.loggedIn = false;
       }
     });
   }
-  getStatus();
+  setStatus();
 
-  $scope.me = function(){
+  var setUser = function(){
     Facebook.api('/me', function(response){
-      console.log(response)
       $scope.user = response;
     });
   }
 
-  $scope.login = function(){
+  var login = function(){
     if($scope.loggedIn) return;
     Facebook.login(function(response){
       console.log("logged in")
       console.log(response);
-      getStatus();
-      $scope.me();
+      setStatus();
     });
   }
 
@@ -43,7 +42,7 @@ prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
 
   $scope.IntentLogin = function(){
     if(!$scope.loggedIn){
-      $scope.login();
+      login();
     }
   }
 });
