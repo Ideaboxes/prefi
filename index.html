@@ -25,12 +25,24 @@
       </div>
       <div class="collapse navbar-collapse">
         <p class="navbar-text">Hello {{user.first_name}}</p>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a data-ng-show="loggedIn" href="#" data-ng-click="Logout()">Disconnect Facebook</a></li>
+        </ul>
       </div>
     </nav>
+
     <!--body content-->
     <div class="container text-center">
+      <div class="col-md-12" data-ng-show="loggedIn">
+      <div class="panel panel-default">
+        <div class="panel-heading">Books</div>
+          <div class="panel-body">
+            <button class="btn btn-success" data-ng-show="!gotBooks" data-ng-click="GetBooks()">Fetch books</button>
+          </div>
+        </div>
+      </div>
       <button data-ng-show="!loggedIn" class="btn btn-primary btn-xl" data-ng-click="IntentLogin()">Connect my Facebook</button>
-      <button data-ng-show="loggedIn" class="btn btn-danger btn-xl" data-ng-click="Logout()">Disconnect Facebook</button>
+      
     </div>
   </body>
 </html>
