@@ -9,8 +9,47 @@ prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
   $scope.friends = [];
   $scope.objects = [];
   $scope.actions = [];
-
   
+  Facebook.getLoginStatus(function(response){
+    setStatus(response)
+  });
+
+  $scope.Logout = function(){
+    Facebook.logout(function(response){
+      $scope.loggedIn = false;
+    });
+  }
+
+  $scope.Login = function(){
+    if($scope.loggedIn) return;
+    Facebook.login(
+      function(response){
+        console.log(response.authResponse.grantedScopes);
+        setStatus(response);
+      }, 
+      {scope:"user_likes,user_actions.books,user_friends", return_scopes:true}
+    );
+  }
+
+  $scope.GetBooks = function(user, friendIndex){
+    if(!$scope.loggedIn){
+      console.log("Not logged in");
+      return;
+    }
+    
+    u = typeof user === 'undefined' ? "me" : user;
+    fi = typeof friendIndex === 'undefined' ? 0 : friendIndex;
+    Facebook.api("/" + u + "/books", function(response){
+      countBooks(fi, "likes", response);
+    })
+    Facebook.api("/" + u + "/books.reads", function(response){
+      countBooks(fi, "reads", response);
+    })
+  }
+
+
+  /********Utils***********/
+
   var setStatus = function(response){
     if(response.status === 'connected'){
       $scope.loggedIn = true;
@@ -19,10 +58,6 @@ prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
       $scope.loggedIn = false;
     }
   };
-
-  Facebook.getLoginStatus(function(response){
-    setStatus(response)
-  });
 
   var setUser = function(){
     Facebook.api('/me', function(response){
@@ -34,26 +69,6 @@ prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
         gender: response.gender,
       }) 
     });
-  }
-
-  var login = function(){
-    if($scope.loggedIn) return;
-    Facebook.login(function(response){
-      console.log(response.authResponse.grantedScopes);
-      setStatus(response);
-    }, {scope:"user_likes,user_actions.books,user_friends", return_scopes:true});
-  }
-
-  $scope.Logout = function(){
-    Facebook.logout(function(response){
-      $scope.loggedIn = false;
-    });
-  }
-
-  $scope.IntentLogin = function(){
-    if(!$scope.loggedIn){
-      login();
-    }
   }
 
   //push if object doesn't exist, and return the index of the object
@@ -85,19 +100,5 @@ prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
     });
   }
 
-  $scope.GetBooks = function(user, friendIndex){
-    if(!$scope.loggedIn){
-      console.log("Not logged in");
-      return;
-    }
-    
-    u = typeof user === 'undefined' ? "me" : user;
-    fi = typeof friendIndex === 'undefined' ? 0 : friendIndex;
-    Facebook.api("/" + u + "/books", function(response){
-      countBooks(fi, "likes", response);
-    })
-    Facebook.api("/" + u + "/books.reads", function(response){
-      countBooks(fi, "reads", response);
-    })
-  }
+
 });
