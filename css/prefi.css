@@ -3,3 +3,13 @@
     font-size: 22px;
     border-radius: 8px;
 }
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}

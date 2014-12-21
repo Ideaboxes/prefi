@@ -3,9 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Prefi</title>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
-    <script src="js/controllers.js"></script>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/prefi.css">
   </head>
@@ -31,7 +28,7 @@
       </div>
     </nav>
 
-    <!--body content-->
+    <!--Content-->
     <div class="container text-center">
       <div class="col-md-12" data-ng-show="loggedIn">
       <div class="panel panel-default">
@@ -44,5 +41,13 @@
       <button data-ng-show="!loggedIn" class="btn btn-primary btn-xl" data-ng-click="IntentLogin()">Connect my Facebook</button>
       
     </div>
+
+    <!--scripts -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="js/d3books.js"></script>
+
   </body>
 </html>
