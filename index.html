@@ -5,6 +5,9 @@
     <title>Prefi</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="css/prefi.css">
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
+    <script src="js/controllers.js"></script>
   </head>
   <body ng-controller="HomeCtrl">
     <!--Nav-->
@@ -31,10 +34,12 @@
     <!--Content-->
     <div class="container text-center">
       <div class="col-md-12" data-ng-show="loggedIn">
+      <button class="btn btn-success" data-ng-show="!gotBooks" data-ng-click="GetBooks()">Fetch books</button>
+      <hr>
       <div class="panel panel-default">
-        <div class="panel-heading">Books</div>
+        <div class="panel-heading">Graph</div>
           <div class="panel-body">
-            <button class="btn btn-success" data-ng-show="!gotBooks" data-ng-click="GetBooks()">Fetch books</button>
+            <graph>
           </div>
         </div>
       </div>
@@ -43,11 +48,8 @@
     </div>
 
     <!--scripts -->
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
-    <script src="js/controllers.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="js/d3books.js"></script>
+    <script src="js/prefi.js"></script>
 
   </body>
 </html>

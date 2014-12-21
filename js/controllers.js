@@ -39,11 +39,16 @@ prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
     
     u = typeof user === 'undefined' ? "me" : user;
     fi = typeof friendIndex === 'undefined' ? 0 : friendIndex;
+    doneOther = false;
     Facebook.api("/" + u + "/books", function(response){
       countBooks(fi, "likes", response);
+      if(doneOther) window.Prefi.render($scope.friends.concat($scope.objects), fixIndex($scope.actions));
+      else doneOther = true;
     })
     Facebook.api("/" + u + "/books.reads", function(response){
       countBooks(fi, "reads", response);
+      if(doneOther) window.Prefi.render($scope.friends.concat($scope.objects), fixIndex($scope.actions));
+      else doneOther = true;
     })
   }
 
@@ -67,6 +72,7 @@ prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
         id: response.id,
         name: response.name,
         gender: response.gender,
+        type: "me"
       }) 
     });
   }
@@ -98,6 +104,17 @@ prefalyticsApp.controller('HomeCtrl', function($scope, Facebook){
         type: "book"
       })
     });
+  }
+
+
+  var fixIndex = function(actions){
+    bookStartingIndex = $scope.friends.length;
+    for(var i=0; i<actions.length; i++){
+      if(actions[i].type == "book"){
+        actions[i].target += bookStartingIndex;
+      }
+    }
+    return actions;
   }
 
 
